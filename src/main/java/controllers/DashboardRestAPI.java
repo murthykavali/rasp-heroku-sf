@@ -1,10 +1,13 @@
 package controllers;
 
+import org.omg.CORBA.Request;
 import service.SalesforceHelper;
 import service.UpdateSalesforce;
 import util.SalesforceContext;
+import service.EmailSender;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import java.util.Map;
@@ -37,5 +40,13 @@ public class DashboardRestAPI {
     public Map<String, Object> getTraffic() {
         return UpdateSalesforce.querySF(SalesforceHelper.getContext(false));
     }
+
+    @POST
+    @Path("/getSnapshot")
+    public boolean getSnapshot(Request request) {
+        EmailSender.main(null);
+        return true;
+    }
+
 
 }
