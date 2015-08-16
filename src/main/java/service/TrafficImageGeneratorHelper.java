@@ -36,7 +36,7 @@ public class TrafficImageGeneratorHelper {
                 for (Object record : recordsList) {
                     if (null != record && record instanceof Map) {
                         Map<String, Object> mapRecord = (Map) record;
-                        String hitCount = (String) mapRecord.get(HIT_COUNT);
+                        Double hitCount = (Double) mapRecord.get(HIT_COUNT);
                         DateTime TimeStamp__c = (DateTime) mapRecord.get(TIME_STAMP);
                         String displayDate = simpleDateFormat.format(TimeStamp__c);
                         chartOptions.getXAxis().getCategories().pushString(displayDate);
