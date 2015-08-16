@@ -1,6 +1,8 @@
 package service;
 
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatter;
+import util.Constants;
 import util.ImageFormat;
 import util.api.ChartOptions;
 import util.api.Series;
@@ -37,8 +39,8 @@ public class TrafficImageGeneratorHelper {
                     if (null != record && record instanceof Map) {
                         Map<String, Object> mapRecord = (Map) record;
                         Double hitCount = (Double) mapRecord.get(HIT_COUNT);
-                        DateTime TimeStamp__c = (DateTime) mapRecord.get(TIME_STAMP);
-                        String displayDate = simpleDateFormat.format(TimeStamp__c);
+                        DateTime TimeStamp__c = DateTime.parse((String) mapRecord.get(TIME_STAMP));
+                        String displayDate = Constants.SFDC_TIME_FORMAT.print(TimeStamp__c);
                         chartOptions.getXAxis().getCategories().pushString(displayDate);
                         seriesValues.pushElement(hitCount);
                     }
