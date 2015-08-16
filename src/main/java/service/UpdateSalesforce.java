@@ -16,7 +16,7 @@ public class UpdateSalesforce {
 
 
     public static void update(SalesforceContext context) {
-        Map response = getResponse(context);
+        Map<String, Object> response = getResponse(context);
         if (response.get("success") != true) {
             //Re-generating session Id
             SalesforceContext regeneratedContext = SalesforceHelper.getContext(true);
@@ -24,7 +24,7 @@ public class UpdateSalesforce {
         }
     }
 
-    private static Map getResponse(SalesforceContext context) {
+    private static Map<String, Object> getResponse(SalesforceContext context) {
 
         String targetUrl = context.getInstanceUrl() + Constants.UPDATE_END_URL;
         String oAuth = context.getAccessToken();
@@ -32,7 +32,7 @@ public class UpdateSalesforce {
         Map<String, String> map = Maps.newHashMap();
         map.put("hitcount__c", "1");
         map.put("timestamp__c", System.currentTimeMillis() + "");
-        Map post = salesforceRestService.post(targetUrl, oAuth, map, Response.class);
+        Map<String, Object> post = salesforceRestService.post(targetUrl, oAuth, map, Map.class);
         return post;
     }
 
