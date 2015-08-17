@@ -8,6 +8,7 @@ public class Config extends ResourceConfig {
     public Config() {
 
         packages("controllers");
+		packages("filters");
         register(JacksonFeature.class);
 
     }
