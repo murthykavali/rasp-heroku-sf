@@ -4,14 +4,18 @@ import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.*;
-import javax.mail.internet.*;
+import javax.mail.Message.RecipientType;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
 
 
 public class EmailSender {
     public static void send(String path) {
 
-        String to = SystemProperties.getEmailAddress();//change accordingly
+        String toEmailAddress = SystemProperties.getEmailAddress();//change accordingly
 
 //Get the session object
         Properties props = new Properties();
@@ -33,9 +37,10 @@ public class EmailSender {
         try {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(SystemProperties.getEmailAddress()));//change accordingly
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject("Hello");
-            message.setText("Testing.......");
+            message.addRecipient(RecipientType.TO, new InternetAddress(toEmailAddress));
+            message.addRecipients(RecipientType.CC, String.valueOf(new InternetAddress("murthykavali@gmail.com")));
+            message.setSubject("Snapshot");
+            message.setText("Please find the attachment");
 
             // Create the message part
             BodyPart messageBodyPart = new MimeBodyPart();

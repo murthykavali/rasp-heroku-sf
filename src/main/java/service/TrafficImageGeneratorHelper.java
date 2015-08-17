@@ -1,7 +1,6 @@
 package service;
 
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatter;
 import util.Constants;
 import util.ImageFormat;
 import util.api.ChartOptions;
@@ -22,9 +21,13 @@ public class TrafficImageGeneratorHelper {
     public static final String TIME_STAMP = "TimeStamp__c";
 
     public static String getImagePath() {
+        Map map = UpdateSalesforce.querySF(SalesforceHelper.getContext(false));
+        return generateImageFromInput(map);
+    }
+
+    private static String generateImageFromInput(Map map) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
-        Map map = UpdateSalesforce.querySF(SalesforceHelper.getContext(false));
         ChartOptions chartOptions = createChartOption();
         Series newSeries = new Series().setName(" ");
 
@@ -40,7 +43,7 @@ public class TrafficImageGeneratorHelper {
                         Map<String, Object> mapRecord = (Map) record;
                         Double hitCount = (Double) mapRecord.get(HIT_COUNT);
                         DateTime TimeStamp__c = DateTime.parse((String) mapRecord.get(TIME_STAMP));
-                        String displayDate = Constants.SFDC_TIME_FORMAT.print(TimeStamp__c);
+                        String displayDate = Constants.TIME_FORMATTER.print(TimeStamp__c);
                         chartOptions.getXAxis().getCategories().pushString(displayDate);
                         seriesValues.pushElement(hitCount);
                     }
@@ -56,14 +59,14 @@ public class TrafficImageGeneratorHelper {
 
     private static String generateImage(ChartOptions chartOptions) {
         ImageGenerator instance = ImageGenerator.getInstance();
-        return instance.generate(chartOptions, ImageFormat.PNG, 300);
+        return instance.generate(chartOptions, ImageFormat.PNG, 400);
     }
 
     private static ChartOptions createChartOption() {
         ChartOptions chartOptions = new ChartOptions();
 
         chartOptions.getCredits().setEnabled(false);
-        chartOptions.getChart().setDefaultSeriesType(SeriesType.LINE).setWidth(550).
+        chartOptions.getChart().setDefaultSeriesType(SeriesType.COLUMN).setWidth(550).
                 setHeight(300).setMarginRight(30).setMarginLeft(50).setMarginTop(20).setMarginBottom(5);
 
         chartOptions.getTitle().setText("");

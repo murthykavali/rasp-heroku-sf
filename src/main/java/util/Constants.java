@@ -28,4 +28,5 @@ public class Constants {
 
     public static final DateTimeFormatter SFDC_TIME_FORMAT =
             DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'+0000'").withZoneUTC();
+    public static final DateTimeFormatter TIME_FORMATTER = DateTimeFormat.forPattern("HH:mm:ss-SS");
 }
