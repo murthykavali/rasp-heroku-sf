@@ -47,7 +47,7 @@ public class DashboardRestAPI {
     @GET
     @Path("/getSnapshot")
     public Boolean getSnapshot(){
-        EmailSender.main(TrafficImageGeneratorHelper.getImagePath());
+        EmailSender.send(TrafficImageGeneratorHelper.getImagePath());
         return true;
     }
 }

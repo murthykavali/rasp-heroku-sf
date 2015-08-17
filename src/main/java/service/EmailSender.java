@@ -9,7 +9,7 @@ import java.util.Properties;
 
 
 public class EmailSender {
-    public static void main(String path) {
+    public static void send(String path) {
 
         String to = SystemProperties.getEmailAddress();//change accordingly
 
