@@ -1,5 +1,6 @@
 package controllers;
 
+import service.EmailSender;
 import service.TrafficImageGeneratorHelper;
 import service.SalesforceHelper;
 import service.UpdateSalesforce;
@@ -43,5 +44,10 @@ public class DashboardRestAPI {
         return TrafficImageGeneratorHelper.getImagePath();
     }
 
-
+    @GET
+    @Path("/getSnapshot")
+    public Boolean getSnapshot(){
+        EmailSender.main(TrafficImageGeneratorHelper.getImagePath());
+        return true;
+    }
 }

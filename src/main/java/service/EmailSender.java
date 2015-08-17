@@ -9,7 +9,7 @@ import java.util.Properties;
 
 
 public class EmailSender {
-    public static void main(String[] args) {
+    public static void main(String path) {
 
         String to = SystemProperties.getEmailAddress();//change accordingly
 
@@ -51,7 +51,7 @@ public class EmailSender {
 
             // Part two is attachment
             messageBodyPart = new MimeBodyPart();
-            String filename = "/app/test.txt";
+            String filename = path;
             DataSource source = new FileDataSource(filename);
             messageBodyPart.setDataHandler(new DataHandler(source));
             messageBodyPart.setFileName(filename);

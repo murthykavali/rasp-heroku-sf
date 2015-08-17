@@ -39,5 +39,20 @@ public class SystemProperties {
         }
         return password;
     }
+    public static String getEmailAddress() {
+        String email = System.getenv(Constants.EMAIL);
+        if (StringUtils.isBlank(email)) {
+            return "";
+        }
+        return email;
+    }
+
+    public static String getEmailPwd() {
+        String emailPwd = System.getenv(Constants.EMAIL_PWD);
+        if (StringUtils.isBlank(emailPwd)) {
+            return "";
+        }
+        return emailPwd;
+    }
 
 }
