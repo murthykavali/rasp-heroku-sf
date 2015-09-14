@@ -29,7 +29,7 @@ public class DashboardRestAPI {
     @Path("/")
     public String updateCountByOne() {
         UpdateSalesforce.update(SalesforceHelper.getContext(false));
-        return "updated counte by one";
+        return "updated count by one";
     }
 
     @GET
